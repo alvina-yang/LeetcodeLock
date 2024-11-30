@@ -14,7 +14,7 @@ export default function OnboardingPage() {
           <p className="mt-2">
             What is wrong with this implementation of Two Sum?
           </p>
-          <pre className="mt-4 bg-neutral-800 text-white p-4 rounded-lg overflow-x-auto">
+          <pre className="mt-4 bg-zinc-800 text-white p-4 rounded-lg overflow-x-auto">
 {`function twoSum(nums, target) {
   for (let i = 0; i < nums.length; i++) {
     for (let j = 0; j < nums.length; j++) {

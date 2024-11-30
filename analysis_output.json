@@ -1,0 +1,14 @@
+{
+  "analysis": [
+    {
+      "category": "Arrays",
+      "percentage": 100,
+      "description": "You explained how to reverse an array well, but you should work on finding the maximum value in an unsorted array to ensure you have a complete understanding of array operations."
+    },
+    {
+      "category": "Hashmaps",
+      "percentage": 0,
+      "description": "You recognized that you didn't know what a hashmap is, but you should work on learning the fundamental concepts of data structures to improve your knowledge."
+    }
+  ]
+}

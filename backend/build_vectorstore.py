@@ -1,7 +1,7 @@
 import os
 from langchain.vectorstores import Chroma
 from langchain_community.embeddings.ollama import OllamaEmbeddings
-from process_csv import process_csv
+from backend.process_csv import process_csv
 
 def build_vectorstore(documents, persist_directory='vectorstore'):
     # Initialize embeddings
