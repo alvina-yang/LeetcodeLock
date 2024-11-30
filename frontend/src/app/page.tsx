@@ -1,11 +1,15 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
 import { ContainerScroll } from "./components/ui/container-scroll-animation";
 import Image from "next/image";
+import { Button } from "./components/ui/moving-boarder";
 
 export default function HeroScrollDemo() {
+  const router = useRouter(); // Initialize useRouter
+
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden bg-black min-h-screen">
       <ContainerScroll
         titleComponent={
           <>
@@ -18,26 +22,24 @@ export default function HeroScrollDemo() {
           </>
         }
       >
-        <Image
-          src={`/image.png`} 
-          alt="hero"
-          height={822}
-          width={1600}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top"
-          draggable={false}
-        />
-        <div className="flex justify-center mt-10">
-          <button
-            className="px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-lg hover:bg-blue-600"
-            onClick={() => {
-              // Redirect to sign-up or login
-              window.location.href = "/signup";
-            }}
-          >
-            Sign Up or Login
-          </button>
+        <div className="relative h-full w-full">
+          <Image
+            src={`/image.png`} // Ensure the path is correct and the image exists in the public folder
+            alt="hero"
+            fill
+            className="object-cover"
+            draggable={false}
+          />
         </div>
       </ContainerScroll>
+      <div className="flex justify-center items-center mb-5">
+        <Button
+          className="px-6 py-3 text-lg font-bold bg-zinc-950 text-white rounded-lg shadow-lg "
+          onClick={() => router.push("/signup")}
+        >
+          Sign Up
+        </Button>
+      </div>
     </div>
   );
 }
