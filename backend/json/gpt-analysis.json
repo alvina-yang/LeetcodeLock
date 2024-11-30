@@ -1,0 +1,37 @@
+{
+    "topics": [
+      {
+        "name": "Arrays",
+        "description": "Understands basic operations like traversing and sorting but struggles with advanced operations like dynamic array resizing."
+      },
+      {
+        "name": "Stack",
+        "description": "Has a strong grasp of LIFO operations and can implement custom stacks but struggles with implementing stacks using arrays."
+      },
+      {
+        "name": "Queue",
+        "description": "Comfortable with FIFO operations and understands circular queues but has trouble implementing priority queues."
+      },
+      {
+        "name": "Tree",
+        "description": "Understands tree structures and binary trees but struggles with balanced tree concepts like AVL and Red-Black trees."
+      },
+      {
+        "name": "Graph",
+        "description": "Has trouble with DFS but understands basic graph structures and BFS."
+      },
+      {
+        "name": "Hashing",
+        "description": "Good understanding of hash maps and collision resolution techniques but struggles with designing hash functions."
+      },
+      {
+        "name": "Sorting Algorithms",
+        "description": "Understands bubble sort and quick sort but has trouble with merge sort and heap sort."
+      },
+      {
+        "name": "Dynamic Programming",
+        "description": "Understands basic concepts like memoization but struggles with complex multi-dimensional DP problems."
+      }
+    ]
+  }
+  
