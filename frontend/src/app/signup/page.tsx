@@ -19,7 +19,7 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username === "alvina" && password === "1234") {
-      router.push("/dashboard");
+      router.push("/");
     } else {
       setError("Invalid username or password. Please try again.");
     }
