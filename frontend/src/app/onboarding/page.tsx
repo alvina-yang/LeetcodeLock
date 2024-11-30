@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function OnboardingPage() {
   const QUESTIONS = [
+    // Question 1: Two Sum
     {
       id: 0,
       content: (
@@ -31,6 +32,7 @@ export default function OnboardingPage() {
         </div>
       ),
     },
+    // Question 2: Detecting a Cycle
     {
       id: 1,
       content: (
@@ -46,6 +48,7 @@ export default function OnboardingPage() {
         </div>
       ),
     },
+    // Question 3: Dynamic Programming
     {
       id: 2,
       content: (
@@ -65,16 +68,50 @@ export default function OnboardingPage() {
         </div>
       ),
     },
+    // Question 4: Graphs - Dijkstra's Algorithm
     {
       id: 3,
       content: (
         <div className="text-white flex flex-col h-full">
           <h2 className="text-lg font-bold">Question 4: Graphs</h2>
           <p className="mt-2">
-            Implement Dijkstra's algorithm to find the shortest path in a graph.
+            Explain how Dijkstra&apos;s Algorithm works
           </p>
           <Textarea
-            placeholder="Your implementation"
+            placeholder="Your explaination"
+            className="flex-grow mt-4 w-full p-2 border border-zinc-600 rounded-lg bg-zinc-900 text-white resize-none"
+          ></Textarea>
+        </div>
+      ),
+    },
+    // Question 5: Sliding Window
+    {
+      id: 5,
+      content: (
+        <div className="text-white flex flex-col h-full">
+          <h2 className="text-lg font-bold">Question 6: Sliding Window</h2>
+          <p className="mt-2">
+            Describe how you would solve the maximum sum subarray of size k
+            using the sliding window technique.
+          </p>
+          <Textarea
+            placeholder="Explain your solution"
+            className="flex-grow mt-4 w-full p-2 border border-zinc-600 rounded-lg bg-zinc-900 text-white resize-none"
+          ></Textarea>
+        </div>
+      ),
+    },
+    // Question 8: Heaps
+    {
+      id: 6,
+      content: (
+        <div className="text-white flex flex-col h-full">
+          <h2 className="text-lg font-bold">Question 7: Heaps</h2>
+          <p className="mt-2">
+            How would you implement a min-heap using a binary tree?
+          </p>
+          <Textarea
+            placeholder="Explain your implementation"
             className="flex-grow mt-4 w-full p-2 border border-zinc-600 rounded-lg bg-zinc-900 text-white resize-none"
           ></Textarea>
         </div>
