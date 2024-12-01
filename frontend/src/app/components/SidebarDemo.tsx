@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 export function SidebarDemo() {
   const [open, setOpen] = useState(false); // Sidebar open state
   const [isSessionActive, setIsSessionActive] = useState(false); // Timer active
-  const [timeLeft, setTimeLeft] = useState(1800); 
-  const [totalPoints, setTotalPoints] = useState(0); 
+  const [timeLeft, setTimeLeft] = useState(60); // Set to 1 minute (60 seconds)
+  const [totalPoints, setTotalPoints] = useState(4); 
 
-  // Load points from localStorage
+  // Load points from localStorage on mount
   useEffect(() => {
     const storedPoints = localStorage.getItem("totalPoints");
     if (storedPoints) {
@@ -20,7 +20,7 @@ export function SidebarDemo() {
     }
   }, []);
 
-  // Save points to localStorage
+  // Save points to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("totalPoints", totalPoints.toString());
   }, [totalPoints]);
@@ -38,17 +38,12 @@ export function SidebarDemo() {
     return () => clearInterval(timer);
   }, [isSessionActive, timeLeft]);
 
-  // Timer control functions
+  // Timer control function
   const handleStartSession = () => {
     if (!isSessionActive) {
       setIsSessionActive(true);
-      setTimeLeft(1800); // Reset to 30 minutes
+      setTimeLeft(60); // Reset to 1 minute (60 seconds)
     }
-  };
-
-  const handleResetSession = () => {
-    setIsSessionActive(false);
-    setTimeLeft(1800); // Reset timer
   };
 
   const formatTime = (seconds: number) => {
@@ -61,38 +56,53 @@ export function SidebarDemo() {
     <Sidebar open={open} setOpen={setOpen}>
       <SidebarBody className="flex flex-col items-center justify-center h-full gap-6 bg-zinc-900">
         {/* Timer Section */}
-        <div className="flex items-center gap-2">
-          <IconClock className="text-slate-200 h-5 w-5 flex-shrink-0" />
+        <div className="flex flex-col items-center gap-1">
+          <IconClock className="text-slate-200 h-5 w-5 flex-shrink-0 mb-1" />
+          {isSessionActive && (
+            <span
+              className={cn(
+                "text-slate-200",
+                open ? "text-base" : "text-xs"
+              )}
+            >
+              {formatTime(timeLeft)}
+            </span>
+          )}
           {open && (
             <div className="flex flex-col">
               <button
-                onClick={isSessionActive ? handleResetSession : handleStartSession}
+                onClick={!isSessionActive ? handleStartSession : undefined}
+                disabled={isSessionActive}
+                aria-disabled={isSessionActive}
                 className={cn(
                   "text-slate-200 hover:text-blue-500 px-2 py-1 rounded transition-all",
-                  isSessionActive ? "hover:text-red-500" : ""
+                  isSessionActive ? "text-slate-400 cursor-not-allowed opacity-50" : ""
                 )}
               >
-                {isSessionActive ? formatTime(timeLeft) : "Start 30-Minute Session"}
+                {!isSessionActive && "Start 1-Minute Session"}
               </button>
             </div>
           )}
         </div>
 
         {/* Points Section */}
-        <div className="flex items-center gap-2">
-          <IconAward className="text-slate-200 h-5 w-5 flex-shrink-0" />
-          {open && (
-            <span className="text-slate-200">
-              Points: <span className="text-amber-400">{totalPoints}</span>
-            </span>
-          )}
+        <div className="flex flex-col items-center gap-1">
+          <IconAward className="text-slate-200 h-5 w-5 flex-shrink-0 mb-1" />
+          <span
+            className={cn(
+              "text-amber-400",
+              open ? "text-base" : "text-xs"
+            )}
+          >
+            {open ? `Points: ${totalPoints}` : `${totalPoints}`}
+          </span>
         </div>
 
         {/* Navigation Links */}
         <div className="flex items-center gap-2">
           <IconGauge className="text-slate-200 h-5 w-5 flex-shrink-0" />
           {open && (
-            <Link href="/dashboard" className="text-slate-200 hover:text-blue-500">
+            <Link href="/roadmap" className="text-slate-200 hover:text-blue-500">
               Dashboard
             </Link>
           )}
