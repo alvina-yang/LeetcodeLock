@@ -7,7 +7,7 @@ from langchain.prompts import (
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
-from langchain.output_parsers import StructuredOutputParser, ResponseSchema
+# from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")

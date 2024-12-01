@@ -7,7 +7,7 @@ import { Button } from "./components/ui/moving-boarder";
 import { StickyScroll } from "./components/ui/sticky-scroll-reveal";
 
 export default function HeroScrollDemo() {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter(); 
 
   const content = [
     {
@@ -55,9 +55,9 @@ export default function HeroScrollDemo() {
         titleComponent={
           <>
             <h1 className="text-4xl font-semibold text-white">
-              Leetcode Lock <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
-                (the better way to study for technicals)
+             (the better way to study for technicals) <br />
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 mb-5 leading-none">
+                Leetcode Lock
               </span>
             </h1>
           </>
@@ -65,7 +65,7 @@ export default function HeroScrollDemo() {
       >
         <div className="relative h-full w-full">
           <Image
-            src={`/image.png`} // Ensure the path is correct and the image exists in the public folder
+            src={`/image.png`} 
             alt="hero"
             fill
             className="object-cover"
@@ -73,11 +73,8 @@ export default function HeroScrollDemo() {
           />
         </div>
       </ContainerScroll>
-      <div>
-        <StickyScroll content={content} />
-      </div>
 
-      <div className="h-10"></div> 
+      {/* <div className="h-10"></div>  */}
 
       <div className="flex justify-center items-center mb-5">
         <Button

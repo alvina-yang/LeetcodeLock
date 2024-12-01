@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react"; // Added useState import
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
@@ -8,28 +8,29 @@ type Card = {
   content: React.ReactNode;
 };
 
+type CardStackProps = {
+  items: Card[];
+  offset?: number;
+  scaleFactor?: number;
+  handleAnswer: (id: number, answer: string) => void;
+  handleFinish: () => void;
+};
+
 export const CardStack = ({
   items,
   offset = 10,
   scaleFactor = 0.06,
-}: {
-  items: Card[];
-  offset?: number;
-  scaleFactor?: number;
-}) => {
+  handleAnswer,
+  handleFinish,
+}: CardStackProps) => {
   const CARD_OFFSET = offset;
   const SCALE_FACTOR = scaleFactor;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const router = useRouter();
+  const [currentIndex, setCurrentIndex] = useState(0); 
 
   const handleNext = () => {
     if (currentIndex < items.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
-  };
-
-  const handleFinish = () => {
-    router.push("/summary");
   };
 
   return (
@@ -45,7 +46,7 @@ export const CardStack = ({
         return (
           <motion.div
             key={card.id}
-            className="absolute bg-black h-[45rem] w-[50rem] md:h-[45rem] md:w-[50rem] rounded-3xl p-6 shadow-xl border border-white/[0.1] shadow-white/[0.05] flex flex-col justify-between overflow-hidden"
+            className="absolute bg-black h-[50rem] w-[50rem] md:h-[50rem] md:w-[50rem] rounded-3xl p-6 shadow-xl border border-white/[0.1] shadow-white/[0.05] flex flex-col justify-between overflow-hidden"
             style={{
               transformOrigin: "top center",
             }}
@@ -63,7 +64,7 @@ export const CardStack = ({
             }}
             transition={{ duration: 0.5 }}
           >
-            <div className="font-normaltext-neutral-200 overflow-y-auto flex-grow">
+            <div className="font-normal text-neutral-200 flex-grow overflow-y-auto">
               {card.content}
             </div>
             {relativeIndex === 0 && currentIndex < items.length - 1 && (

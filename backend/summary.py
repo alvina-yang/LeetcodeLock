@@ -13,7 +13,7 @@ from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
-def analyze_quiz(quiz_data, max_retries=3):
+def summary_analysis(quiz_data, max_retries=3):
     # Initialize the LLM
     llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0, openai_api_key=api_key)
 
@@ -90,7 +90,7 @@ def main():
         quiz_data = json.load(f)
 
     # Analyze the quiz
-    analysis = analyze_quiz(quiz_data)
+    analysis = summary_analysis(quiz_data)
 
     # Output the analysis to a JSON file
     with open('analysis_output.json', 'w') as f:

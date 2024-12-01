@@ -1,11 +1,13 @@
-# backend.py
 
 import os
 import json
 from flask import Flask, jsonify, request
 from leetcode_analysis import analyze_quiz
+from summary import summary_analysis
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 SESSION_FILE = "session_data.json"
 
@@ -34,6 +36,30 @@ def submit_responses():
     with open('analysis_output.json', 'w') as f:
         json.dump(analysis, f, indent=2)
     
+    # Return the analysis as a response
+    return jsonify(analysis), 200
+
+# Route to get the analysis of the responses
+@app.route('/get_analysis', methods=['GET'])
+def get_analysis():
+    # Load the stored responses
+    responses = read_session()
+
+    if not responses:
+        return jsonify({'error': 'No responses found.'}), 400
+
+    # Analyze the quiz using the responses
+    analysis = summary_analysis(responses)
+
+    if not analysis:
+        return jsonify({'error': 'Analysis failed or no topics identified.'}), 500
+
+    # Save the analysis to a file or database if needed
+    with open('analysis_output.json', 'w') as f:
+        json.dump(analysis, f, indent=2)
+
+    print('Analysis:', analysis)
+
     # Return the analysis as a response
     return jsonify(analysis), 200
 
