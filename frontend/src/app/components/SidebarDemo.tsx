@@ -10,7 +10,8 @@ export function SidebarDemo() {
   const [open, setOpen] = useState(false); // Sidebar open state
   const [isSessionActive, setIsSessionActive] = useState(false); // Timer active
   const [timeLeft, setTimeLeft] = useState(60); // Set to 1 minute (60 seconds)
-  const [totalPoints, setTotalPoints] = useState(4); 
+  const [totalPoints, setTotalPoints] = useState(4);
+  const [isAllowedToEarnPoints, setIsAllowedToEarnPoints] = useState(true); // WebSocket status
 
   // Load points from localStorage on mount
   useEffect(() => {
@@ -25,6 +26,28 @@ export function SidebarDemo() {
     localStorage.setItem("totalPoints", totalPoints.toString());
   }, [totalPoints]);
 
+  // WebSocket integration
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:6789"); // Replace with your WebSocket URL
+
+    ws.onmessage = (event) => {
+      const data = event.data === "true"; // Convert WebSocket message to boolean
+      setIsAllowedToEarnPoints(data);
+    };
+
+    ws.onclose = () => {
+      console.error("WebSocket closed.");
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
   // Timer countdown effect
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -32,11 +55,15 @@ export function SidebarDemo() {
       timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     } else if (isSessionActive && timeLeft === 0) {
       setIsSessionActive(false);
-      setTotalPoints((prev) => prev + 1); // Increment points
-      alert("Session Complete! You've earned 1 point.");
+      if (isAllowedToEarnPoints) {
+        setTotalPoints((prev) => prev + 1); // Increment points only if allowed
+        alert("Session Complete! You've earned 1 point.");
+      } else {
+        alert("Session Complete! You did not lock in, no points earned.");
+      }
     }
     return () => clearInterval(timer);
-  }, [isSessionActive, timeLeft]);
+  }, [isSessionActive, timeLeft, isAllowedToEarnPoints]);
 
   // Timer control function
   const handleStartSession = () => {

@@ -2,31 +2,31 @@
     "topics": [
         {
             "name": "Two Sum Problem",
-            "description": "The user did not provide an answer, indicating a lack of understanding or inability to identify issues in the implementation."
+            "description": "The user did not provide an answer, indicating a lack of understanding or knowledge about the implementation of the Two Sum problem."
         },
         {
             "name": "Cycle Detection in Singly Linked List",
-            "description": "The user did not provide an answer, suggesting a lack of knowledge on algorithms for detecting cycles in linked lists."
+            "description": "The user did not provide an answer, suggesting a lack of familiarity with techniques for detecting cycles in linked lists."
         },
         {
-            "name": "Dynamic Programming - Maximum Sum of Contiguous Subarray",
-            "description": "The user did not provide an answer, indicating a need for further study in dynamic programming techniques."
+            "name": "Dynamic Programming",
+            "description": "The user did not provide an answer, indicating a need for further study in dynamic programming concepts and problem-solving."
         },
         {
             "name": "Dijkstra's Algorithm",
-            "description": "The user did not provide an answer, showing a lack of understanding of graph algorithms and their applications."
+            "description": "The user did not provide an answer, showing a lack of understanding of Dijkstra's Algorithm and its application in finding the shortest path."
         },
         {
-            "name": "Binary Tree Traversals",
-            "description": "The user did not provide an answer, suggesting a lack of knowledge about tree traversal methods."
+            "name": "Tree Traversals",
+            "description": "The user did not provide an answer, indicating a lack of knowledge regarding tree traversal methods, specifically in-order traversal."
         },
         {
             "name": "Sliding Window Technique",
-            "description": "The user did not provide an answer, indicating a need for further understanding of the sliding window approach in solving problems."
+            "description": "The user did not provide an answer, suggesting a need for improvement in understanding the sliding window technique for solving problems like maximum sum subarray of size k."
         },
         {
             "name": "Min-Heap Implementation",
-            "description": "The user did not provide an answer, suggesting a lack of understanding of heap data structures and their implementation."
+            "description": "The user did not provide an answer, indicating a lack of understanding of how to implement a min-heap using a binary tree."
         }
     ]
 }

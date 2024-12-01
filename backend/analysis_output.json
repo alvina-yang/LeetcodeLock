@@ -3,37 +3,37 @@
         {
             "category": "Arrays",
             "percentage": 0,
-            "description": "You did not provide an answer, which indicates a lack of understanding of the Two Sum problem. You should work on articulating your thought process and providing a solution."
+            "description": "You did not provide an answer, which indicates a lack of understanding of the Two Sum problem. You should work on articulating your thought process and solution strategies for array-related problems."
         },
         {
             "category": "Linked Lists",
             "percentage": 0,
-            "description": "You did not provide an answer, which suggests you may not be familiar with cycle detection in linked lists. You should work on learning the Floyd's Tortoise and Hare algorithm."
+            "description": "You did not provide an answer, which suggests you may not be familiar with cycle detection in linked lists. You should work on learning the Floyd's Tortoise and Hare algorithm or other methods for detecting cycles."
         },
         {
             "category": "Dynamic Programming",
             "percentage": 0,
-            "description": "You did not provide an answer, indicating a gap in your understanding of dynamic programming techniques. You should work on practicing problems related to maximum sum subarrays."
+            "description": "You did not provide an answer, indicating a lack of understanding of dynamic programming concepts. You should work on practicing problems related to maximum subarray sums and understanding the Kadane's algorithm."
         },
         {
             "category": "Graph Algorithms",
             "percentage": 0,
-            "description": "You did not provide an answer, which shows a lack of knowledge about Dijkstra's Algorithm. You should work on understanding how to implement and explain this algorithm."
+            "description": "You did not provide an answer, which shows you may not be familiar with Dijkstra's Algorithm. You should work on understanding the algorithm's steps and its application in finding the shortest path in graphs."
         },
         {
             "category": "Tree Traversals",
             "percentage": 0,
-            "description": "You did not provide an answer, indicating you may not know the in-order traversal method. You should work on memorizing the different tree traversal techniques."
+            "description": "You did not provide an answer, indicating a lack of knowledge about tree traversal methods. You should work on learning the different types of tree traversals, especially in-order traversal."
         },
         {
             "category": "Sliding Window Technique",
             "percentage": 0,
-            "description": "You did not provide an answer, which suggests you are not familiar with the sliding window technique for solving subarray problems. You should work on understanding how to apply this technique effectively."
+            "description": "You did not provide an answer, which suggests you may not understand the sliding window technique. You should work on practicing how to apply this technique to solve problems involving subarrays."
         },
         {
-            "category": "Data Structures",
+            "category": "Heaps",
             "percentage": 0,
-            "description": "You did not provide an answer, indicating a lack of understanding of heap implementations. You should work on learning how to implement a min-heap using a binary tree."
+            "description": "You did not provide an answer, indicating a lack of understanding of heap implementations. You should work on learning how to implement a min-heap and the properties of binary trees."
         }
     ]
 }

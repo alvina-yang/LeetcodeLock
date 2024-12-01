@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
+import { IconBrandGoogle, IconBrandApple } from "@tabler/icons-react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -28,6 +29,11 @@ export default function Login() {
 
   const handleGoogleSignIn = () => {
     signIn("google", { callbackUrl: "/onboarding" }); // Redirect to /onboarding after successful login
+  };
+
+  const handleAppleSignIn = () => {
+    // Replace with actual Apple Sign-In logic when available
+    alert("Apple Sign-In not yet implemented.");
   };
 
   if (!isClient) return null; // Avoid rendering until on the client
@@ -66,25 +72,25 @@ export default function Login() {
         {error && (
           <p className="text-red-500 text-xs italic mb-4">{error}</p>
         )}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-2">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            className="bg-zinc-900 hover:bg-zinc-700 text-white  shadow-xl border border-white/[0.1] shadow-white/[0.05] font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
           >
             Login
-          </button>
+          </button>   
         </div>
-      </form>
-
-      {/* Google Sign In Button */}
-      <div className="flex justify-center mb-4">
+        <div className="flex items-center justify-center mb-2">
+          or
+        </div>
         <button
           onClick={handleGoogleSignIn}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+          className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-700 text-white font-medium py-3 px-4 rounded-md shadow-xl border border-white/[0.1] shadow-white/[0.05] w-full"
         >
+          <IconBrandGoogle className="h-5 w-5" />
           Sign in with Google
         </button>
-      </div>
+      </form>
     </div>
   );
 }

@@ -8,10 +8,10 @@ export const WebSocketHandler: React.FC = () => {
   const { showModal } = useModal();
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:6789"); 
+    const ws = new WebSocket("ws://localhost:6789");
 
     ws.onmessage = (event) => {
-      const boolValue = event.data === "true";
+      const boolValue = event.data === "true"; // Parse WebSocket message
       console.log(`Received boolValue: ${boolValue}`);
       if (!boolValue) {
         showModal(); // Trigger the modal when `bool` is false
@@ -23,9 +23,9 @@ export const WebSocketHandler: React.FC = () => {
     };
 
     return () => {
-      ws.close(); // Clean up on component unmount
+      ws.close(); // Clean up WebSocket connection on component unmount
     };
   }, [showModal]);
 
-  return null; // This component doesn't render anything
+  return null;
 };
