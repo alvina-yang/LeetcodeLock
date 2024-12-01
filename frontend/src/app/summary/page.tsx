@@ -96,7 +96,7 @@ export default function SummaryPage() {
                 <div className="flex items-center justify-center">
                     <Button
                         className="px-6 py-3 text-lg font-bold bg-zinc-950 text-white rounded-lg shadow-lg " 
-                        onClick={() => router.push("/signup")}
+                        onClick={() => router.push("/questions")}
                     >
                         View your Map :D
                     </Button>
