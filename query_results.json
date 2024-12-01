@@ -1,0 +1,202 @@
+[
+    {
+        "category": "Arrays",
+        "problems": [
+            {
+                "problem_name": "Wiggle Sort II",
+                "problem_text": "Given an integer array nums, reorder it such that nums[0] < nums[1] > nums[2] < nums[3].... You may assume the input array always has a valid answer."
+            },
+            {
+                "problem_name": "Shortest Unsorted Continuous Subarray",
+                "problem_text": "Given an integer array nums, you need to find one continuous subarray that if you only sort this subarray in ascending order, then the whole array will be sorted in ascending order. Return the shortest such subarray and output its length."
+            },
+            {
+                "problem_name": "Minimum Moves to Equal Array Elements II",
+                "problem_text": "Given an integer array nums of size n, return the minimum number of moves required to make all array elements equal. In one move, you can increment or decrement an element of the array by 1. Test cases are designed so that the answer will fit in a 32-bit integer."
+            },
+            {
+                "problem_name": "Wiggle Subsequence",
+                "problem_text": "A wiggle sequence is a sequence where the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with one element and a sequence with two non-equal elements are trivially wiggle sequences. A subsequence is obtained by deleting some elements (possibly zero) from the original sequence, leaving the remaining elements in their original order. Given an integer array nums, return the length of the longest wiggle subsequence of nums."
+            },
+            {
+                "problem_name": "Find First and Last Position of Element in Sorted Array",
+                "problem_text": "Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value. If target is not found in the array, return [-1, -1]. You must\u00a0write an algorithm with\u00a0O(log n) runtime complexity."
+            }
+        ]
+    },
+    {
+        "category": "Stack",
+        "problems": [
+            {
+                "problem_name": "Implement Stack using Queues",
+                "problem_text": "Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty). Implement the MyStack class: Notes:"
+            },
+            {
+                "problem_name": "Implement Queue using Stacks",
+                "problem_text": "Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty). Implement the MyQueue class: Notes:"
+            },
+            {
+                "problem_name": "Min Stack",
+                "problem_text": "Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Implement the MinStack class:"
+            },
+            {
+                "problem_name": "Triangle",
+                "problem_text": "Given a triangle array, return the minimum path sum from top to bottom. For each step, you may move to an adjacent number of the row below. More formally, if you are on index i on the current row, you may move to either index i or index i + 1 on the next row."
+            },
+            {
+                "problem_name": "LRU Cache",
+                "problem_text": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache. Implement the LRUCache class: The functions\u00a0get\u00a0and\u00a0put\u00a0must each run in O(1) average time complexity."
+            }
+        ]
+    },
+    {
+        "category": "Queue",
+        "problems": [
+            {
+                "problem_name": "Implement Queue using Stacks",
+                "problem_text": "Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty). Implement the MyQueue class: Notes:"
+            },
+            {
+                "problem_name": "Implement Stack using Queues",
+                "problem_text": "Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty). Implement the MyStack class: Notes:"
+            },
+            {
+                "problem_name": "Ugly Number II",
+                "problem_text": "An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5. Given an integer n, return the nth ugly number."
+            },
+            {
+                "problem_name": "Sliding Window Maximum",
+                "problem_text": "You are given an array of integers\u00a0nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window."
+            },
+            {
+                "problem_name": "Top K Frequent Elements",
+                "problem_text": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order."
+            }
+        ]
+    },
+    {
+        "category": "Tree",
+        "problems": [
+            {
+                "problem_name": "Binary Tree Right Side View",
+                "problem_text": "Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom."
+            },
+            {
+                "problem_name": "Binary Tree Level Order Traversal",
+                "problem_text": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level)."
+            },
+            {
+                "problem_name": "Unique Binary Search Trees II",
+                "problem_text": "Given an integer n, return all the structurally unique BST's (binary search trees), which has exactly n nodes of unique values from 1 to n. Return the answer in any order."
+            },
+            {
+                "problem_name": "Binary Tree Level Order Traversal II",
+                "problem_text": "Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. (i.e., from left to right, level by level from leaf to root)."
+            },
+            {
+                "problem_name": "Construct Binary Tree from Preorder and Inorder Traversal",
+                "problem_text": "Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree."
+            }
+        ]
+    },
+    {
+        "category": "Graph",
+        "problems": [
+            {
+                "problem_name": "Binary Tree Zigzag Level Order Traversal",
+                "problem_text": "Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between)."
+            },
+            {
+                "problem_name": "Binary Tree Level Order Traversal II",
+                "problem_text": "Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. (i.e., from left to right, level by level from leaf to root)."
+            },
+            {
+                "problem_name": "Binary Tree Level Order Traversal",
+                "problem_text": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level)."
+            },
+            {
+                "problem_name": "Binary Tree Inorder Traversal",
+                "problem_text": "Given the root of a binary tree, return the inorder traversal of its nodes' values."
+            },
+            {
+                "problem_name": "Construct Binary Tree from Inorder and Postorder Traversal",
+                "problem_text": "Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree."
+            }
+        ]
+    },
+    {
+        "category": "Hashing",
+        "problems": [
+            {
+                "problem_name": "Map Sum Pairs",
+                "problem_text": "Design a map that allows you to do the following: Implement the MapSum class:"
+            },
+            {
+                "problem_name": "Ugly Number II",
+                "problem_text": "An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5. Given an integer n, return the nth ugly number."
+            },
+            {
+                "problem_name": "Palindrome Pairs",
+                "problem_text": "Given a list of unique words, return all the pairs of the\u00a0distinct indices (i, j) in the given list, so that the concatenation of the two words\u00a0words[i] + words[j] is a palindrome."
+            },
+            {
+                "problem_name": "Intersection of Two Arrays",
+                "problem_text": "Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order."
+            },
+            {
+                "problem_name": "Implement Trie (Prefix Tree)",
+                "problem_text": "A trie (pronounced as \"try\") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker. Implement the Trie class:"
+            }
+        ]
+    },
+    {
+        "category": "Sorting Algorithms",
+        "problems": [
+            {
+                "problem_name": "Sort List",
+                "problem_text": "Given the head of a linked list, return the list after sorting it in ascending order."
+            },
+            {
+                "problem_name": "Insertion Sort List",
+                "problem_text": "Given the head of a singly linked list, sort the list using insertion sort, and return the sorted list's head. The steps of the insertion sort algorithm: The following is a graphical example of the insertion sort algorithm. The partially sorted list (black) initially contains only the first element in the list. One element (red) is removed from the input data and inserted in-place into the sorted list with each iteration."
+            },
+            {
+                "problem_name": "Sort Characters By Frequency",
+                "problem_text": "Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string. Return the sorted string. If there are multiple answers, return any of them."
+            },
+            {
+                "problem_name": "Find First and Last Position of Element in Sorted Array",
+                "problem_text": "Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value. If target is not found in the array, return [-1, -1]. You must\u00a0write an algorithm with\u00a0O(log n) runtime complexity."
+            },
+            {
+                "problem_name": "Merge k Sorted Lists",
+                "problem_text": "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it."
+            }
+        ]
+    },
+    {
+        "category": "Dynamic Programming",
+        "problems": [
+            {
+                "problem_name": "Longest Increasing Path in a Matrix",
+                "problem_text": "Given an m x n integers matrix, return the length of the longest increasing path in matrix. From each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed)."
+            },
+            {
+                "problem_name": "Minimum Path Sum",
+                "problem_text": "Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path. Note: You can only move either down or right at any point in time."
+            },
+            {
+                "problem_name": "Triangle",
+                "problem_text": "Given a triangle array, return the minimum path sum from top to bottom. For each step, you may move to an adjacent number of the row below. More formally, if you are on index i on the current row, you may move to either index i or index i + 1 on the next row."
+            },
+            {
+                "problem_name": "Wiggle Subsequence",
+                "problem_text": "A wiggle sequence is a sequence where the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with one element and a sequence with two non-equal elements are trivially wiggle sequences. A subsequence is obtained by deleting some elements (possibly zero) from the original sequence, leaving the remaining elements in their original order. Given an integer array nums, return the length of the longest wiggle subsequence of nums."
+            },
+            {
+                "problem_name": "01 Matrix",
+                "problem_text": "Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell. The distance between two adjacent cells is 1."
+            }
+        ]
+    }
+]

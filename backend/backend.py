@@ -34,7 +34,7 @@ def read_analysis():
         with open(ANALYSIS_FILE, "r") as file:
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {}  # Return an empty dict if the file doesn't exist or is empty
+        return {}  
 
 # Route to receive the questionnaire responses
 @app.route('/submit_responses', methods=['POST'])
