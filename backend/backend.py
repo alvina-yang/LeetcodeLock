@@ -1,15 +1,14 @@
-
 import os
 import json
 from flask import Flask, jsonify, request
-from leetcode_analysis import analyze_quiz
 from summary import summary_analysis
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins for development
 
 SESSION_FILE = "session_data.json"
+ANALYSIS_FILE = "analysis_output.json"
 
 # Helper function to read data from the JSON file
 def read_session():
@@ -17,48 +16,59 @@ def read_session():
         with open(SESSION_FILE, "r") as file:
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {}  # Return an empty dictionary if the file doesn't exist or is empty
+        return []  # Return an empty list if the file doesn't exist or is empty
 
 # Helper function to write data to the JSON file
 def write_session(data):
     with open(SESSION_FILE, "w") as file:
         json.dump(data, file, indent=4)
 
+# Helper function to write analysis
+def write_analysis(data):
+    with open(ANALYSIS_FILE, "w") as file:
+        json.dump(data, file, indent=4)
+
+# Helper function to read analysis
+def read_analysis():
+    try:
+        with open(ANALYSIS_FILE, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}  # Return an empty dict if the file doesn't exist or is empty
+
 # Route to receive the questionnaire responses
 @app.route('/submit_responses', methods=['POST'])
 def submit_responses():
     responses = request.json  # Expecting a list of question-answer dicts
-    
-    # Analyze the quiz using the responses
-    analysis = analyze_quiz(responses)
-    
-    # Save the analysis to a file or database if needed
-    with open('analysis_output.json', 'w') as f:
-        json.dump(analysis, f, indent=2)
-    
+
+    if not responses or not isinstance(responses, list):
+        return jsonify({'error': 'Invalid responses format.'}), 400
+
+    # Save the responses to session_data.json
+    write_session(responses)
+    print(f"Saved responses: {responses}")
+
+    # Perform analysis
+    analysis = summary_analysis(responses)
+    print(f"Analysis result: {analysis}")
+
+    # Save the analysis to analysis_output.json
+    write_analysis(analysis)
+    print("Analysis saved to analysis_output.json")
+
     # Return the analysis as a response
     return jsonify(analysis), 200
 
 # Route to get the analysis of the responses
 @app.route('/get_analysis', methods=['GET'])
 def get_analysis():
-    # Load the stored responses
-    responses = read_session()
+    # Load the stored analysis
+    analysis = read_analysis()
 
-    if not responses:
-        return jsonify({'error': 'No responses found.'}), 400
+    if not analysis or 'analysis' not in analysis:
+        return jsonify({'error': 'No analysis found.'}), 400
 
-    # Analyze the quiz using the responses
-    analysis = summary_analysis(responses)
-
-    if not analysis:
-        return jsonify({'error': 'Analysis failed or no topics identified.'}), 500
-
-    # Save the analysis to a file or database if needed
-    with open('analysis_output.json', 'w') as f:
-        json.dump(analysis, f, indent=2)
-
-    print('Analysis:', analysis)
+    print(f"Analysis: {analysis}")
 
     # Return the analysis as a response
     return jsonify(analysis), 200

@@ -1,0 +1,30 @@
+[
+    {
+        "question": "What is wrong with this implementation of Two Sum?",
+        "answer": "a"
+    },
+    {
+        "question": "How would you detect a cycle in a singly linked list?",
+        "answer": ""
+    },
+    {
+        "question": "Solve this dynamic programming problem: Find the maximum sum of a contiguous subarray.",
+        "answer": ""
+    },
+    {
+        "question": "Explain how Dijkstra's Algorithm works.",
+        "answer": ""
+    },
+    {
+        "question": "Which of the following traversals visits nodes in the order left, root, right?",
+        "answer": ""
+    },
+    {
+        "question": "Describe how you would solve the maximum sum subarray of size k using the sliding window technique.",
+        "answer": ""
+    },
+    {
+        "question": "How would you implement a min-heap using a binary tree?",
+        "answer": ""
+    }
+]

@@ -10,5 +10,33 @@
   {
     "question": "How do you find the maximum value in an unsorted array?",
     "answer": "By iterating through the array and keeping track of the maximum value."
+  },
+  {
+    "question": "What is the difference between a stack and a queue?",
+    "answer": "A stack uses LIFO (Last In, First Out) while a queue uses FIFO (First In, First Out)."
+  },
+  {
+    "question": "How can you check if a string is a palindrome?",
+    "answer": "By comparing the string with its reverse."
+  },
+  {
+    "question": "What is the purpose of a binary search?",
+    "answer": "To efficiently find an element in a sorted array by dividing the search range in half."
+  },
+  {
+    "question": "Explain the concept of recursion.",
+    "answer": "It is a process where a function calls itself to solve smaller instances of the same problem."
+  },
+  {
+    "question": "What is a linked list?",
+    "answer": "A data structure consisting of nodes, where each node contains data and a reference to the next node."
+  },
+  {
+    "question": "How do you implement a binary tree traversal?",
+    "answer": "By using pre-order, in-order, or post-order traversal methods."
+  },
+  {
+    "question": "What is the time complexity of a binary search algorithm?",
+    "answer": "O(log n)."
   }
 ]

@@ -1,33 +1,59 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import { HoverEffect } from "@/app/components/ui/card-hover-effect";
-import { useAnalysis } from "@/app/context/AnalysisContext";
 
 export default function SummaryPage() {
-  const { analysis } = useAnalysis();
-  const [parsedAnalysis, setParsedAnalysis] = useState<{ title: string; description: string }[]>([]);
+  const [analysis, setAnalysis] = useState<{ title: string; description: string }[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
+  // Fetch analysis from `/get_analysis`
   useEffect(() => {
-    if (analysis && typeof analysis === "string") {
-      const items = analysis.split("\n\n").map(item => {
-        const lines = item.split("\n");
-        const titleLine = lines.find(line => line.startsWith("name: "));
-        const descriptionLine = lines.find(line => line.startsWith("description: "));
-        const title = titleLine ? titleLine.replace("name: ", "").trim() : "No Title";
-        const description = descriptionLine ? descriptionLine.replace("description: ", "").trim() : "No Description";
-        return { title, description };
-      });
-      setParsedAnalysis(items);
-    }
-  }, [analysis]);
+    const fetchAnalysis = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/get_analysis", {
+          method: "GET",
+        });
 
-  if (!analysis) {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to fetch analysis");
+        }
+
+        const data = await response.json();
+
+        // Assuming 'data' is a dictionary like { "analysis": [...] }
+        const formattedData = data.analysis.map((item: any) => ({
+          title: item.category,
+          description: item.description,
+        }));
+
+        setAnalysis(formattedData);
+      } catch (err) {
+        console.error("Error fetching analysis:", err);
+        setError("Failed to fetch analysis. Please try again.");
+      }
+    };
+
+    fetchAnalysis();
+  }, []);
+
+  if (error) {
     return (
       <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
         <div className="bg-zinc-800 text-white p-8 rounded-xl shadow-xl">
-          <h1 className="text-2xl font-bold mb-4">No Analysis Found</h1>
-          <p className="mb-2">Please complete the quiz first.</p>
+          <h1 className="text-2xl font-bold mb-4">Error</h1>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (analysis.length === 0) {
+    return (
+      <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
+        <div className="bg-zinc-800 text-white p-8 rounded-xl shadow-xl">
+          <h1 className="text-2xl font-bold mb-4">Loading...</h1>
+          <p>Fetching your analysis. Please wait.</p>
         </div>
       </div>
     );
@@ -35,14 +61,12 @@ export default function SummaryPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
-      <div className="bg-zinc-950 text-white p-8 rounded-xl shadow-xl max-w-6xl w-full overflow-y-auto">
+      <div className="bg-zinc-800 text-white p-8 rounded-xl shadow-xl max-w-6xl w-full overflow-y-auto">
         <h1 className="text-2xl font-bold mb-6">Quiz Summary</h1>
-        {/* Display the analysis using HoverEffect */}
         <HoverEffect
-          items={parsedAnalysis.map(item => ({
+          items={analysis.map((item) => ({
             title: item.title,
             description: item.description,
-            // link is optional and omitted here
           }))}
         />
       </div>

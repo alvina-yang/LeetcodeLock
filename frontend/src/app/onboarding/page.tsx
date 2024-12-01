@@ -2,12 +2,11 @@
 import React, { useState } from "react";
 import { CardStack } from "@/app/components/ui/card-stack";
 import { Textarea } from "@/components/ui/textarea";
-import { useAnalysis } from "@/app/context/AnalysisContext";
+// import { useAnalysis } from "@/app/context/AnalysisContext";
 import { useRouter } from "next/navigation";
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { setAnalysis } = useAnalysis();
 
   // State to store answers
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
@@ -23,12 +22,13 @@ export default function OnboardingPage() {
   // Handler for Finish button
   const handleFinish = async () => {
     // Prepare the JSON array
-    const formattedAnswers = QUESTIONS.slice(0, -1).map((q) => ({
+    const formattedAnswers = QUESTIONS.map((q) => ({
       question: q.question,
       answer: answers[q.id] || "",
     }));
 
     try {
+      // Send the answers to `/submit_responses`
       const response = await fetch("http://localhost:5000/submit_responses", {
         method: "POST",
         headers: {
@@ -41,16 +41,10 @@ export default function OnboardingPage() {
         throw new Error("Failed to submit responses");
       }
 
-      const analysis = await response.json();
-
-      // Store the analysis in context
-      setAnalysis(analysis);
-
       // Route to summary page
       router.push("/summary");
     } catch (error) {
       console.error("Error submitting responses:", error);
-      // Optionally, display an error message to the user
       alert("There was an error submitting your responses. Please try again.");
     }
   };

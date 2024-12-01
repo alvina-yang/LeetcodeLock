@@ -1,7 +1,7 @@
 import os
 import json
 from dotenv import load_dotenv
-from langchain.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI  # Updated import
 from langchain.prompts import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
@@ -33,14 +33,11 @@ def summary_analysis(quiz_data, max_retries=3):
 
     # Prepare quiz responses as a string
     quiz_responses = ""
-    for response in quiz_data["responses"]:
-        quiz_responses += (
-            f"Question ID: {response['question_id']}\n"
-            f"Category: {response['category']}\n"
-            f"Question: {response['question']}\n"
-            f"User Answer: {response['user_answer']}\n"
-            f"Correct Answer: {response['correct_answer']}\n\n"
-        )
+    for response in quiz_data:  # Iterate directly over the list
+        question = response.get("question", "Unknown question")
+        answer = response.get("answer", "No answer provided")
+
+        quiz_responses += f"Question: {question}\nUser Answer: {answer}\n\n"
 
     # Create the prompt template
     prompt_template = ChatPromptTemplate.from_messages([
@@ -49,7 +46,7 @@ def summary_analysis(quiz_data, max_retries=3):
         ),
         HumanMessagePromptTemplate.from_template(
             "Given the following quiz responses:\n{quiz_responses}\n\n"
-            "Analyze the user's performance and for each category, provide:\n"
+            "Analyze the user's performance and for each question, provide:\n"
             "- The category name.\n"
             "- The percentage of correctness (from 0 to 100).\n"
             "- A description that first mentions something you did well, then something you need to work on, using 'you'. For example, 'You did X well but you should work on Y.'\n\n"
@@ -60,13 +57,13 @@ def summary_analysis(quiz_data, max_retries=3):
 
     # Retry logic
     for attempt in range(1, max_retries + 1):
-        # Format the messages
-        messages = prompt_template.format_messages(
-            quiz_responses=quiz_responses,
-            format_instructions=format_instructions
-        )
-
         try:
+            # Format the messages
+            messages = prompt_template.format_messages(
+                quiz_responses=quiz_responses,
+                format_instructions=format_instructions
+            )
+
             # Get the LLM response
             response = llm(messages)
 
