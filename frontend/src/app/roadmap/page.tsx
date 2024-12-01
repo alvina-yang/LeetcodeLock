@@ -1,41 +1,16 @@
 // src/app/roadmap/page.tsx
 
 "use client";
-<<<<<<< HEAD
-=======
-import React, { useEffect, useState } from "react";
-import { Carousel, Card } from "../components/ui/roadmap-cards";
-import { useRouter } from "next/navigation";
->>>>>>> eb75d05b80c2d3138879c4ece3e70fa47c9c800d
 
 import React, { useState } from "react";
 import { ArcherContainer, ArcherElement } from "react-archer";
 import { useAnalysis } from "../context/AnalysisContext";
 import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
-<<<<<<< HEAD
 export default function RoadmapPage() {
   const { leetcodeData, setSelectedQuestion } = useAnalysis();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const router = useRouter(); // Initialize router
-=======
-  useEffect(() => {
-    // Fetch the JSON data from the public folder
-    fetch('/leetcodeproblems.json')
-      .then((response) => response.json())
-      .then((jsonData) => {
-        // Dynamically add category to each item in the JSON data
-        const updatedData = jsonData.map((item: any, index: number) => ({
-          title: item.category,
-          content: formatContent(item.problems),
-          category: `Problem set #${index + 1}`,
-        }));
-        console.log("Updated Data:", updatedData);
-        setData(updatedData);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
->>>>>>> eb75d05b80c2d3138879c4ece3e70fa47c9c800d
 
   if (!leetcodeData) {
     return (
@@ -140,26 +115,3 @@ export default function RoadmapPage() {
     </div>
   );
 }
-<<<<<<< HEAD
-=======
-
-const formatContent = (problems: any[]) => {
-    return problems.map((problem, index) => (
-      <div key={index} className="bg-zinc-800 p-8 rounded-3xl mb-4 relative">
-        <h4 className="font-semibold text-white">{problem.problem_name}</h4>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Difficulty: {problem.problem_difficulty}
-        </p>
-        {/* Next Button */}
-        <button
-          className="absolute bottom-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-semibold shadow-lg"
-          onClick={() => console.log(`Next clicked for problem: ${problem.problem_name}`)}
-        >
-          Next
-        </button>
-      </div>
-    ));
-  };
-
-export default AppleCardsCarouselDemo;
->>>>>>> eb75d05b80c2d3138879c4ece3e70fa47c9c800d
