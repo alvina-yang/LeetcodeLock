@@ -1,26 +1,14 @@
-{
-    "responses": [
-      {
-        "question_id": 1,
-        "category": "Arrays",
-        "question": "Explain how to reverse an array.",
-        "user_answer": "By swapping elements from both ends towards the center.",
-        "correct_answer": "Correctly explained."
-      },
-      {
-        "question_id": 2,
-        "category": "Hashmaps",
-        "question": "What is a hashmap?",
-        "user_answer": "I don't know.",
-        "correct_answer": "A data structure that maps keys to values."
-      },
-      {
-        "question_id": 3,
-        "category": "Arrays",
-        "question": "How do you find the maximum value in an unsorted array?",
-        "user_answer": "By iterating through the array and keeping track of the maximum value.",
-        "correct_answer": "Correctly explained."
-      }
-    ]
+[
+  {
+    "question": "Explain how to reverse an array.",
+    "answer": "By swapping elements from both ends towards the center."
+  },
+  {
+    "question": "What is a hashmap?",
+    "answer": "I don't know."
+  },
+  {
+    "question": "How do you find the maximum value in an unsorted array?",
+    "answer": "By iterating through the array and keeping track of the maximum value."
   }
-  
+]

@@ -1,7 +1,9 @@
-import openai
-import json
+# backend.py
+
 import os
+import json
 from flask import Flask, jsonify, request
+from leetcode_analysis import analyze_quiz
 
 app = Flask(__name__)
 
@@ -23,29 +25,17 @@ def write_session(data):
 # Route to receive the questionnaire responses
 @app.route('/submit_responses', methods=['POST'])
 def submit_responses():
-    responses = request.json
+    responses = request.json  # Expecting a list of question-answer dicts
     
-    # Load existing session data (to avoid overwriting any existing data)
-    session_data = read_session()
-
-    # Update session data with the new responses (key-value pairs are preserved as-is)
-    session_data.update(responses)
-
-    # Write the updated session data to the file
-    write_session(session_data)
-    print('hello')
-    print('Received responses:', responses)
-
-    return jsonify({'status': 'success'}), 200
-
-# Route to check stored responses
-@app.route('/get_responses', methods=['GET'])
-def get_responses():
-    session_data = read_session()  # Read from the file
-
-    print(f"Retrieved responses: {session_data}")
-
-    return jsonify(session_data), 200
+    # Analyze the quiz using the responses
+    analysis = analyze_quiz(responses)
+    
+    # Save the analysis to a file or database if needed
+    with open('analysis_output.json', 'w') as f:
+        json.dump(analysis, f, indent=2)
+    
+    # Return the analysis as a response
+    return jsonify(analysis), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
