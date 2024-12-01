@@ -1,4 +1,5 @@
 "use client";
+
 import React, {
   useEffect,
   useRef,
@@ -11,22 +12,30 @@ import {
   IconArrowNarrowRight,
   IconX,
 } from "@tabler/icons-react";
-import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Image, { ImageProps } from "next/image";
-import { useOutsideClick } from "@/hooks/use-outside-click";
+import { useOutsideClick } from "./use-outside-click";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface CarouselProps {
   items: JSX.Element[];
   initialScroll?: number;
 }
 
-type Card = {
-  src: string;
+type CardData = {
   title: string;
   category: string;
   content: React.ReactNode;
+  percentage: number;
 };
+
+interface CardProps {
+  card: CardData;
+  index: number;
+  layout?: boolean;
+}
 
 export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
@@ -37,9 +46,9 @@ export const CarouselContext = createContext<{
 });
 
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
-  const carouselRef = React.useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-  const [canScrollRight, setCanScrollRight] = React.useState(true);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -47,6 +56,13 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
       carouselRef.current.scrollLeft = initialScroll;
       checkScrollability();
     }
+
+    const handleResize = () => {
+      checkScrollability();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [initialScroll]);
 
   const checkScrollability = () => {
@@ -57,22 +73,22 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   };
 
-  const scrollLeft = () => {
+  const scrollLeftFunc = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
+      carouselRef.current.scrollBy({ left: -200, behavior: "smooth" });
     }
   };
 
-  const scrollRight = () => {
+  const scrollRightFunc = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
+      carouselRef.current.scrollBy({ left: 200, behavior: "smooth" });
     }
   };
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
-      const gap = isMobile() ? 4 : 8;
+      const cardWidth = isMobile() ? 200 : 250;
+      const gap = isMobile() ? 6 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
         left: scrollPosition,
@@ -83,69 +99,60 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   };
 
   const isMobile = () => {
-    return window && window.innerWidth < 768;
+    if (typeof window === "undefined") return false;
+    return window.innerWidth < 768;
   };
 
   return (
     <CarouselContext.Provider
       value={{ onCardClose: handleCardClose, currentIndex }}
     >
-      <div className="relative w-full bg-black">
+      <div className="relative w-full bg-zinc-900">
         <div
-          className="flex w-full overflow-x-scroll overscroll-x-auto py-10 md:py-20 scroll-smooth [scrollbar-width:none] bg-black text-white"
+          className="flex w-full overflow-x-scroll overscroll-x-auto py-8 scroll-smooth [scrollbar-width:none] bg-zinc-950 text-white"
           ref={carouselRef}
           onScroll={checkScrollability}
         >
-          <div
-            className={cn(
-              "absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l from-black"
-            )}
-          ></div>
+          <div className="absolute left-0 z-[1000] h-full w-[5%] bg-gradient-to-r from-black"></div>
+          <div className="absolute right-0 z-[1000] h-full w-[5%] bg-gradient-to-l from-black"></div>
 
-          <div
-            className={cn(
-              "flex flex-row justify-start gap-4 pl-4",
-              "max-w-7xl mx-auto"
-            )}
-          >
+          <div className="flex flex-row justify-start gap-6 px-4 max-w-7xl mx-auto">
             {items.map((item, index) => (
               <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{
                   opacity: 1,
                   y: 0,
                   transition: {
                     duration: 0.5,
-                    delay: 0.2 * index,
+                    delay: 0.1 * index,
                     ease: "easeOut",
                     once: true,
                   },
                 }}
                 key={"card" + index}
-                className="last:pr-[5%] md:last:pr-[33%] rounded-3xl bg-black"
+                className="rounded-3xl shadow-lg"
               >
                 {item}
               </motion.div>
             ))}
           </div>
         </div>
-        <div className="flex justify-end gap-2 mr-10">
+        {/* Arrow Buttons */}
+        <div className="absolute inset-0 flex justify-between items-center px-4">
           <button
             className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
-            onClick={scrollLeft}
+            onClick={scrollLeftFunc}
             disabled={!canScrollLeft}
           >
-            <IconArrowNarrowLeft className="h-6 w-6 text-black" />
+            <IconArrowNarrowLeft className="h-6 w-6 text-zinc-900" />
           </button>
           <button
             className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
-            onClick={scrollRight}
+            onClick={scrollRightFunc}
             disabled={!canScrollRight}
           >
-            <IconArrowNarrowRight className="h-6 w-6 text-black" />
+            <IconArrowNarrowRight className="h-6 w-6 text-zinc-900" />
           </button>
         </div>
       </div>
@@ -153,18 +160,10 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   );
 };
 
-export const Card = ({
-  card,
-  index,
-  layout = false,
-}: {
-  card: Card;
-  index: number;
-  layout?: boolean;
-}) => {
+export const Card = ({ card, index, layout = false }: CardProps) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose } = useContext(CarouselContext);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -194,6 +193,29 @@ export const Card = ({
     onCardClose(index);
   };
 
+  // Prepare data for the doughnut chart
+  const chartData = {
+    labels: ["Score", "Remaining"],
+    datasets: [
+      {
+        data: [card.percentage, 100 - card.percentage],
+        backgroundColor: ["#4ade80", "#d1d5db"], // Adjust colors as needed
+        hoverBackgroundColor: ["#4ade80", "#d1d5db"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Options for the doughnut chart
+  const chartOptions = {
+    cutout: "70%",
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -203,92 +225,81 @@ export const Card = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="bg-black/80 backdrop-blur-lg h-full w-full fixed inset-0"
+              className="bg-black/80 fixed inset-0"
             />
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
               ref={containerRef}
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="max-w-5xl mx-auto bg-black dark:bg-neutral-900 h-fit z-[60] my-10 p-4 md:p-10 rounded-3xl font-sans relative"
+              className="max-w-2xl mx-auto bg-zinc-950 h-fit z-[60] my-10 p-4 md:p-8 rounded-3xl font-sans relative text-white shadow-lg"
             >
               <button
-                className="sticky top-4 h-8 w-8 right-0 ml-auto bg-white rounded-full flex items-center justify-center"
+                className="absolute top-4 right-4 h-8 w-8 bg-white rounded-full flex items-center justify-center"
                 onClick={handleClose}
               >
-                <IconX className="h-6 w-6 text-neutral-900" />
+                <IconX className="h-6 w-6 text-zinc-900" />
               </button>
               <motion.p
                 layoutId={layout ? `category-${card.title}` : undefined}
-                className="text-base font-medium text-white"
+                className="text-base font-medium"
               >
                 {card.category}
               </motion.p>
               <motion.p
                 layoutId={layout ? `title-${card.title}` : undefined}
-                className="text-2xl md:text-5xl font-semibold text-white mt-4"
+                className="text-2xl md:text-4xl font-semibold mt-4"
               >
                 {card.title}
               </motion.p>
-              <div className="py-10 text-white">{card.content}</div>
+              {/* Include the doughnut chart in the modal */}
+              <div className="py-6">
+                <div className="flex flex-col items-center">
+                  <div className="h-[10rem]">
+                    <Doughnut data={chartData} options={chartOptions} />
+                  </div>
+                  <p className="mt-4 text-xl font-bold">
+                    {card.percentage}% Understanding
+                  </p>
+                </div>
+                {card.content}
+              </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-      <motion.button
+      <motion.div
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="rounded-3xl bg-black h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 text-white"
+        className="rounded-3xl bg-zinc-950 outline outline-zinc-900 h-48 w-40 md:h-[30rem] md:w-80 overflow-hidden flex flex-col items-center justify-center relative z-10 text-white shadow-lg cursor-pointer"
       >
-        <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
-        <div className="relative z-40 p-8">
+        <div className="relative z-40 p-4 flex flex-col items-center">
           <motion.p
             layoutId={layout ? `category-${card.category}` : undefined}
-            className="text-white text-sm md:text-base font-medium font-sans text-left"
+            className="text-white text-sm md:text-base font-medium font-sans text-center"
           >
             {card.category}
           </motion.p>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
+            className="text-white text-lg md:text-xl font-semibold max-w-xs text-center font-sans mt-2"
           >
             {card.title}
           </motion.p>
+          {/* Include the doughnut chart on the card */}
+          <div className="mt-4 w-24 h-24">
+            <Doughnut data={chartData} options={chartOptions} />
+          </div>
+          <p className="mt-2 text-sm font-bold">
+            {card.percentage}% Understanding
+          </p>
         </div>
-        <BlurImage
-          src={card.src}
-          alt={card.title}
-          fill
-          className="object-cover absolute z-10 inset-0"
-        />
-      </motion.button>
+        {/* Optional Content Placeholder */}
+        <div className="absolute bottom-0 left-0 right-0 p-2">
+          <p className="text-white text-sm text-center">Click to see details</p>
+        </div>
+      </motion.div>
     </>
-  );
-};
-
-export const BlurImage = ({
-  height,
-  width,
-  src,
-  className,
-  alt,
-  ...rest
-}: ImageProps) => {
-  const [isLoading, setLoading] = useState(true);
-  return (
-    <Image
-      className={cn(
-        className,
-        "duration-700 ease-in-out",
-        isLoading
-          ? "scale-110 blur-sm grayscale"
-          : "scale-100 blur-0 grayscale-0"
-      )}
-      src={src}
-      alt={alt}
-      onLoadingComplete={() => setLoading(false)}
-      {...rest}
-    />
   );
 };

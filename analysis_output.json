@@ -1,0 +1,39 @@
+{
+    "analysis": [
+        {
+            "category": "Arrays",
+            "percentage": 0,
+            "description": "You did not provide an answer, which indicates a lack of understanding of the Two Sum problem. You should work on articulating your thought process for solving array-related problems."
+        },
+        {
+            "category": "Linked Lists",
+            "percentage": 0,
+            "description": "You did not provide an answer, which suggests you may not be familiar with cycle detection in linked lists. You should work on learning the Floyd's Tortoise and Hare algorithm for this topic."
+        },
+        {
+            "category": "Dynamic Programming",
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating a gap in your understanding of dynamic programming techniques. You should work on practicing problems related to maximum subarray sums, such as Kadane's algorithm."
+        },
+        {
+            "category": "Graph Algorithms",
+            "percentage": 0,
+            "description": "You did not provide an answer, which shows a lack of familiarity with Dijkstra's Algorithm. You should work on understanding the algorithm's steps and its application in finding the shortest path in graphs."
+        },
+        {
+            "category": "Tree Traversals",
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating you may not know the in-order traversal method. You should work on memorizing the different tree traversal techniques and their orders."
+        },
+        {
+            "category": "Sliding Window Technique",
+            "percentage": 0,
+            "description": "You did not provide an answer, which suggests you may not be familiar with the sliding window technique. You should work on understanding how to apply this technique to solve problems involving subarrays."
+        },
+        {
+            "category": "Data Structures",
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating a lack of knowledge on implementing a min-heap. You should work on learning the properties of heaps and how to implement them using binary trees."
+        }
+    ]
+}

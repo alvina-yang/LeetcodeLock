@@ -1,12 +1,14 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
-import { HoverEffect } from "@/app/components/ui/card-hover-effect";
+import { Carousel, Card } from "../components/ui/apple-cards-carousel";
 
 export default function SummaryPage() {
-  const [analysis, setAnalysis] = useState<{ title: string; description: string }[]>([]);
+  const [analysis, setAnalysis] = useState<
+    { name: string; description: string; percentage: number }[]
+  >([]);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch analysis from `/get_analysis`
   useEffect(() => {
     const fetchAnalysis = async () => {
       try {
@@ -20,14 +22,19 @@ export default function SummaryPage() {
         }
 
         const data = await response.json();
+        console.log("Fetched Data:", data); // Debug the fetched data
 
-        // Assuming 'data' is a dictionary like { "analysis": [...] }
-        const formattedData = data.analysis.map((item: any) => ({
-          title: item.category,
-          description: item.description,
-        }));
-
-        setAnalysis(formattedData);
+        // Check if data has an "analysis" key and set it to the state
+        if (data.analysis && Array.isArray(data.analysis)) {
+          const formattedData = data.analysis.map((item: any) => ({
+            name: item.category,
+            description: item.description,
+            percentage: item.percentage, // Include the percentage
+          }));
+          setAnalysis(formattedData);
+        } else {
+          throw new Error("Invalid data format received from backend.");
+        }
       } catch (err) {
         console.error("Error fetching analysis:", err);
         setError("Failed to fetch analysis. Please try again.");
@@ -48,7 +55,7 @@ export default function SummaryPage() {
     );
   }
 
-  if (analysis.length === 0) {
+  if (!Array.isArray(analysis) || analysis.length === 0) {
     return (
       <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
         <div className="bg-zinc-800 text-white p-8 rounded-xl shadow-xl">
@@ -59,16 +66,30 @@ export default function SummaryPage() {
     );
   }
 
+  const cards = analysis.map((item, index) => (
+    <Card
+      key={index}
+      card={{
+        title: item.name,
+        category: "",
+        percentage: item.percentage, // Pass the percentage to the card
+        content: (
+          <div className="p-4 text-white">
+            <p className="text-base md:text-xl">{item.description}</p>
+          </div>
+        ),
+      }}
+      index={index}
+    />
+  ));
+
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
-      <div className="bg-zinc-800 text-white p-8 rounded-xl shadow-xl max-w-6xl w-full overflow-y-auto">
-        <h1 className="text-2xl font-bold mb-6">Quiz Summary</h1>
-        <HoverEffect
-          items={analysis.map((item) => ({
-            title: item.title,
-            description: item.description,
-          }))}
-        />
+      <div className="w-full h-full py-20">
+        <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-200 font-sans">
+          Your Quiz Summary
+        </h2>
+        <Carousel items={cards} />
       </div>
     </div>
   );
