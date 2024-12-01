@@ -199,9 +199,9 @@ export const Card = ({ card, index, layout = false }: CardProps) => {
     datasets: [
       {
         data: [card.percentage, 100 - card.percentage],
-        backgroundColor: ["#4ade80", "#d1d5db"], // Adjust colors as needed
-        hoverBackgroundColor: ["#4ade80", "#d1d5db"],
-        borderWidth: 1,
+        backgroundColor: ["#6B21A8", "#d1d5db"],
+        hoverBackgroundColor: ["#7C3AED", "#e5e7eb"], 
+        borderWidth: 0,
       },
     ],
   };
