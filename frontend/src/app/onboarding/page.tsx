@@ -237,6 +237,9 @@ export default function OnboardingPage() {
         handleAnswer={handleAnswer}
         handleFinish={handleFinish}
       />
+      <div className="absolute bottom-4 left-4 flex items-center justify-center w-12 h-12 bg-blue-500 text-white rounded-full text-2xl font-bold">
+        A
+      </div>
     </div>
   );
 }
