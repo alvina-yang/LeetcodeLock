@@ -5,7 +5,7 @@ import time
 lock = False
 connect = False
 
-arduino = serial.Serial(port='COM3', baudrate=9600)
+# arduino = serial.Serial(port='COM3', baudrate=9600)
 
 wmi_service = win32.GetObject("winmgmts:\\\\.\\root\\cimv2")
 
@@ -16,7 +16,8 @@ prevDevCount = len(devices)
 
 while True:
     while True:
-        data = float(arduino.readline())
+        # data = float(arduino.readline())
+        data = 22
         if data == 22:
             print("Locked")
             lock = True
@@ -42,5 +43,6 @@ while True:
             print("A USB device was connected")
             connect = True
             break  
-    print(lock & connect)
+    bool = lock & connect
+    print(bool)
     prevDevCount = curDevCount

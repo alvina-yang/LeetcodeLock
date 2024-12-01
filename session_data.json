@@ -1,30 +1,30 @@
 [
     {
         "question": "What is wrong with this implementation of Two Sum?",
-        "answer": "\nThere are several issues with the given implementation of Two Sum:\n\n1. Redundant Check of the Same Index\nIn the inner loop, j can equal i, which means the same element could be added to itself. This is incorrect because the problem typically assumes distinct indices.\n2. Inefficiency (Time Complexity)\nThe nested loops result in a O(n\u00b2) time complexity, which is inefficient. A better solution involves using a hashmap to reduce the time complexity to O(n).\n3. Potential Missing Edge Cases\nIf no valid pair exists that sums up to the target, the function doesn't return anything. It would return undefined, which might not be ideal. You might want to explicitly handle this case."
+        "answer": ""
     },
     {
         "question": "How would you detect a cycle in a singly linked list?",
-        "answer": "Algorithm Explanation:\nUse two pointers:\nSlow pointer (Tortoise): Moves one step at a time.\nFast pointer (Hare): Moves two steps at a time.\nIf there is a cycle, the fast pointer will eventually meet the slow pointer within the cycle.\nIf the fast pointer reaches the end of the list (null), there is no cycle."
+        "answer": ""
     },
     {
         "question": "Solve this dynamic programming problem: Find the maximum sum of a contiguous subarray.",
-        "answer": "function maxSubArray(nums) {\n  let maxCurrent = nums[0];\n  let maxGlobal = nums[0];\n\n  for (let i = 1; i < nums.length; i++) {\n    maxCurrent = Math.max(nums[i], maxCurrent + nums[i]); // Add to subarray or start fresh.\n    if (maxCurrent > maxGlobal) {\n      maxGlobal = maxCurrent; // Update global max if current max is higher.\n    }\n  }\n\n  return maxGlobal;\n}\n"
+        "answer": ""
     },
     {
         "question": "Explain how Dijkstra's Algorithm works.",
-        "answer": "finding the shortest path"
+        "answer": ""
     },
     {
         "question": "Which of the following traversals visits nodes in the order left, root, right?",
-        "answer": "Inorder"
+        "answer": "Preorder"
     },
     {
         "question": "Describe how you would solve the maximum sum subarray of size k using the sliding window technique.",
-        "answer": "i would slide the window"
+        "answer": "loop"
     },
     {
         "question": "How would you implement a min-heap using a binary tree?",
-        "answer": ""
+        "answer": "there is a built in python thing for it it's min heapify something"
     }
 ]
