@@ -1,0 +1,32 @@
+{
+    "topics": [
+        {
+            "name": "Two Sum Problem",
+            "description": "The user did not provide an answer, indicating a lack of understanding or inability to identify issues in the implementation."
+        },
+        {
+            "name": "Cycle Detection in Singly Linked List",
+            "description": "The user did not provide an answer, suggesting a lack of knowledge on algorithms for detecting cycles in linked lists."
+        },
+        {
+            "name": "Dynamic Programming - Maximum Sum of Contiguous Subarray",
+            "description": "The user did not provide an answer, indicating a need for further study in dynamic programming techniques."
+        },
+        {
+            "name": "Dijkstra's Algorithm",
+            "description": "The user did not provide an answer, showing a lack of understanding of graph algorithms and their applications."
+        },
+        {
+            "name": "Binary Tree Traversals",
+            "description": "The user did not provide an answer, suggesting a lack of knowledge about tree traversal methods."
+        },
+        {
+            "name": "Sliding Window Technique",
+            "description": "The user did not provide an answer, indicating a need for further understanding of the sliding window approach in solving problems."
+        },
+        {
+            "name": "Min-Heap Implementation",
+            "description": "The user did not provide an answer, suggesting a lack of understanding of heap data structures and their implementation."
+        }
+    ]
+}

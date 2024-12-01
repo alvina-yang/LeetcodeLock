@@ -17,14 +17,14 @@
     },
     {
         "question": "Which of the following traversals visits nodes in the order left, root, right?",
-        "answer": "Preorder"
+        "answer": ""
     },
     {
         "question": "Describe how you would solve the maximum sum subarray of size k using the sliding window technique.",
-        "answer": "loop"
+        "answer": ""
     },
     {
         "question": "How would you implement a min-heap using a binary tree?",
-        "answer": "there is a built in python thing for it it's min heapify something"
+        "answer": ""
     }
 ]

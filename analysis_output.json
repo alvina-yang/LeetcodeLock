@@ -3,37 +3,37 @@
         {
             "category": "Arrays",
             "percentage": 0,
-            "description": "You did not provide an answer, which indicates a lack of understanding of the Two Sum problem. You should work on articulating your thought process for common algorithmic problems."
+            "description": "You did not provide an answer, which indicates a lack of understanding of the Two Sum problem. You should work on articulating your thought process and solution strategies for array-related problems."
         },
         {
             "category": "Linked Lists",
             "percentage": 0,
-            "description": "You did not provide an answer, which suggests you may not be familiar with cycle detection techniques in linked lists. You should work on studying algorithms related to linked list operations."
+            "description": "You did not provide an answer, which suggests you may not be familiar with cycle detection techniques in linked lists. You should work on learning and practicing algorithms related to linked list operations."
         },
         {
             "category": "Dynamic Programming",
             "percentage": 0,
-            "description": "You did not provide an answer, indicating a lack of understanding of dynamic programming concepts. You should work on learning how to approach and solve dynamic programming problems."
+            "description": "You did not provide an answer, indicating a gap in your understanding of dynamic programming concepts. You should work on studying and solving dynamic programming problems to improve your skills."
         },
         {
             "category": "Graph Algorithms",
             "percentage": 0,
-            "description": "You did not provide an answer, which shows you may not be familiar with Dijkstra's Algorithm. You should work on understanding graph traversal algorithms and their applications."
+            "description": "You did not provide an answer, which shows a lack of knowledge about Dijkstra's Algorithm. You should work on understanding graph traversal algorithms and their applications."
         },
         {
             "category": "Tree Traversals",
-            "percentage": 100,
-            "description": "You correctly identified the preorder traversal method. You did well in recognizing tree traversal techniques, but you should work on understanding the differences between various traversal methods."
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating you may not be familiar with tree traversal methods. You should work on learning the different types of tree traversals and their order of operations."
         },
         {
             "category": "Sliding Window Technique",
-            "percentage": 20,
-            "description": "You mentioned 'loop', which indicates you have some awareness of the sliding window technique. You did well to start thinking about the solution, but you should work on providing a more detailed explanation of how to implement it."
+            "percentage": 0,
+            "description": "You did not provide an answer, which suggests you may not understand the sliding window technique. You should work on practicing this technique with various problems to gain confidence."
         },
         {
-            "category": "Heaps",
-            "percentage": 20,
-            "description": "You acknowledged the existence of a built-in Python function for min-heaps, which shows some awareness of available tools. You did well to reference Python's capabilities, but you should work on understanding the underlying implementation and properties of min-heaps."
+            "category": "Data Structures",
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating a lack of understanding of heap implementations. You should work on studying binary trees and heap data structures to improve your knowledge."
         }
     ]
 }

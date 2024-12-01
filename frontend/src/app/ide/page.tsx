@@ -1,6 +1,8 @@
+// src/app/ide/page.tsx
+
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,6 +12,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Button } from "../components/ui/moving-boarder";
 import axios from "axios";
 import { SidebarDemo } from "../components/SidebarDemo";
+import { useAnalysis } from "../context/AnalysisContext";
+import { useRouter } from "next/navigation";
 
 // Custom theme for MUI components
 const theme = createTheme({
@@ -41,21 +45,21 @@ const theme = createTheme({
 });
 
 export default function CodeEditorPage() {
+  const { selectedQuestion } = useAnalysis();
   const [code, setCode] = useState("// Start coding here...");
   const [language, setLanguage] = useState("javascript");
   const [output, setOutput] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [stdin, setStdin] = useState<string>(""); // For custom input
+  const router = useRouter();
 
-  // Hardcoded question details
-  const question = {
-    title: "Two Sum",
-    text: `Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. 
-You may assume that each input would have exactly one solution, and you may not use the same element twice. 
-You can return the answer in any order.`,
-    difficulty: "Easy", // Change as needed: Easy, Medium, or Hard
-  };
+  // Redirect to roadmap if no question is selected
+  useEffect(() => {
+    if (!selectedQuestion) {
+      router.push("/roadmap");
+    }
+  }, [selectedQuestion, router]);
 
   // Determine difficulty color based on the difficulty level
   const getDifficultyColor = (difficulty: string) => {
@@ -74,10 +78,10 @@ You can return the answer in any order.`,
   const getLanguageId = (lang: string): number => {
     const languageMap: { [key: string]: number } = {
       javascript: 63, // JavaScript (Node.js 12.14.0)
-      python: 71,     // Python (3.8.1)
-      java: 62,       // Java (OpenJDK 13.0.1)
-      csharp: 51,     // C# (C#)
-      cpp: 54,        // C++ (GCC 9.2.0)
+      python: 71, // Python (3.8.1)
+      java: 62, // Java (OpenJDK 13.0.1)
+      csharp: 51, // C# (C#)
+      cpp: 54, // C++ (GCC 9.2.0)
       typescript: 74, // TypeScript (Node.js)
     };
     return languageMap[lang] || 63; // Default to JavaScript if not found
@@ -182,76 +186,89 @@ You can return the answer in any order.`,
   return (
     <ThemeProvider theme={theme}>
       <div className="h-screen w-full flex relative">
-        {/* Main editor section */}
-        <div className="w-1/2 h-full flex flex-col">
-          <div className="flex justify-between p-3 bg-zinc-800 text-white">
-            <FormControl variant="standard" sx={{ minWidth: 120 }}>
-              <InputLabel id="language-select-label" sx={{ color: "white" }}>
-                Language
-              </InputLabel>
-              <Select
-                labelId="language-select-label"
-                id="language-select"
-                value={language}
-                onChange={handleLanguageChange}
-                sx={{ color: "white" }}
-              >
-                <MenuItem value="javascript">JavaScript</MenuItem>
-                <MenuItem value="typescript">TypeScript</MenuItem>
-                <MenuItem value="python">Python</MenuItem>
-                <MenuItem value="java">Java</MenuItem>
-                <MenuItem value="csharp">C#</MenuItem>
-                <MenuItem value="cpp">C++</MenuItem>
-              </Select>
-            </FormControl>
-            <div className="w-20 flex items-center">
-              <Button
-                className="bg-zinc-900"
-                onClick={handleCompile}
-                disabled={loading}
-              >
-                {loading ? "Running..." : "Run"}
-              </Button>
+        {/* Sidebar Section */}
+        <SidebarDemo />
+
+        {/* Main editor and output section */}
+        <div className="flex-1 flex">
+          {/* Editor Section */}
+          <div className="w-1/2 h-full flex flex-col">
+            <div className="flex justify-between p-3 bg-zinc-800 text-white">
+              <FormControl variant="standard" sx={{ minWidth: 120 }}>
+                <InputLabel id="language-select-label" sx={{ color: "white" }}>
+                  Language
+                </InputLabel>
+                <Select
+                  labelId="language-select-label"
+                  id="language-select"
+                  value={language}
+                  onChange={handleLanguageChange}
+                  sx={{ color: "white" }}
+                >
+                  <MenuItem value="javascript">JavaScript</MenuItem>
+                  <MenuItem value="typescript">TypeScript</MenuItem>
+                  <MenuItem value="python">Python</MenuItem>
+                  <MenuItem value="java">Java</MenuItem>
+                  <MenuItem value="csharp">C#</MenuItem>
+                  <MenuItem value="cpp">C++</MenuItem>
+                </Select>
+              </FormControl>
+              <div className="w-20 flex items-center">
+                <Button
+                  className="bg-zinc-900"
+                  onClick={handleCompile}
+                  disabled={loading}
+                >
+                  {loading ? "Running..." : "Run"}
+                </Button>
+              </div>
             </div>
+
+            <Editor
+              height="100%"
+              language={language}
+              theme="vs-dark"
+              value={code}
+              onChange={handleEditorChange}
+              options={{
+                selectOnLineNumbers: true,
+                automaticLayout: true,
+              }}
+            />
           </div>
 
-          <Editor
-            height="100%"
-            language={language}
-            theme="vs-dark"
-            value={code}
-            onChange={handleEditorChange}
-            options={{
-              selectOnLineNumbers: true,
-              automaticLayout: true,
-            }}
-          />
-        </div>
+          {/* Output and Question Section */}
+          <div className="w-1/2 bg-zinc-900 p-4 overflow-y-auto">
+            {/* Question Section */}
+            {selectedQuestion && (
+              <div className="mb-6">
+                <h2 className="text-xl text-gray-200 font-bold">
+                  {selectedQuestion.problem_name}
+                </h2>
+                <p className="text-sm text-gray-400 mb-2">
+                  Difficulty:{" "}
+                  <span
+                    className={`font-semibold ${getDifficultyColor(
+                      selectedQuestion.problem_difficulty
+                    )}`}
+                  >
+                    {selectedQuestion.problem_difficulty}
+                  </span>
+                </p>
+                <pre className="bg-zinc-800 text-gray-300 p-4 rounded whitespace-pre-wrap">
+                  {selectedQuestion.problem_text}
+                </pre>
+              </div>
+            )}
 
-        {/* Output and Question Display */}
-        <div className="w-1/2 bg-zinc-900 p-4 overflow-y-auto">
-          {/* Question Section */}
-          <div className="mb-6">
-            <h2 className="text-xl text-gray-200 font-bold">{question.title}</h2>
-            <p className="text-sm text-gray-400 mb-2">
-              Difficulty:{" "}
-              <span className={`font-semibold ${getDifficultyColor(question.difficulty)}`}>
-                {question.difficulty}
-              </span>
-            </p>
-            <pre className="bg-zinc-800 text-gray-300 p-4 rounded whitespace-pre-wrap">
-              {question.text}
-            </pre>
+            {/* Output Section */}
+            <h1 className="text-xl text-white mb-4">Output</h1>
+            {loading && <p className="text-white">Executing...</p>}
+            {error && <pre className="text-red-500">{error}</pre>}
+            {output && <pre className="text-green-500">{output}</pre>}
           </div>
-
-          {/* Output Section */}
-          <h1 className="text-xl text-white mb-4">Output</h1>
-          {loading && <p className="text-white">Executing...</p>}
-          {error && <pre className="text-red-500">{error}</pre>}
-          {output && <pre className="text-green-500">{output}</pre>}
         </div>
       </div>
-
     </ThemeProvider>
   );
 }

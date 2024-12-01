@@ -1,1 +1,39 @@
-"name: Arrays  \ndescription: The user demonstrates a strong understanding of arrays, including the concept of reversing elements by swapping from both ends towards the center.  \nname: Hashmaps  \ndescription: The user lacks understanding of hashmaps, indicating a need for foundational knowledge in this area."
+{
+    "analysis": [
+        {
+            "category": "Arrays",
+            "percentage": 0,
+            "description": "You did not provide an answer, which indicates a lack of understanding of the Two Sum problem. You should work on articulating your thought process and providing a solution."
+        },
+        {
+            "category": "Linked Lists",
+            "percentage": 0,
+            "description": "You did not provide an answer, which suggests you may not be familiar with cycle detection in linked lists. You should work on learning the Floyd's Tortoise and Hare algorithm."
+        },
+        {
+            "category": "Dynamic Programming",
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating a gap in your understanding of dynamic programming techniques. You should work on practicing problems related to maximum sum subarrays."
+        },
+        {
+            "category": "Graph Algorithms",
+            "percentage": 0,
+            "description": "You did not provide an answer, which shows a lack of knowledge about Dijkstra's Algorithm. You should work on understanding how to implement and explain this algorithm."
+        },
+        {
+            "category": "Tree Traversals",
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating you may not know the in-order traversal method. You should work on memorizing the different tree traversal techniques."
+        },
+        {
+            "category": "Sliding Window Technique",
+            "percentage": 0,
+            "description": "You did not provide an answer, which suggests you are not familiar with the sliding window technique for solving subarray problems. You should work on understanding how to apply this technique effectively."
+        },
+        {
+            "category": "Data Structures",
+            "percentage": 0,
+            "description": "You did not provide an answer, indicating a lack of understanding of heap implementations. You should work on learning how to implement a min-heap using a binary tree."
+        }
+    ]
+}

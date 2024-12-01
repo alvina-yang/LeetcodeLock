@@ -4,17 +4,17 @@ import React, { useEffect, useState } from "react";
 import { Carousel, Card } from "../components/ui/apple-cards-carousel";
 import { Button } from "../components/ui/moving-boarder";
 import { useRouter } from "next/navigation";
+import { useAnalysis } from "../context/AnalysisContext";
 
 export default function SummaryPage() {
     const router = useRouter();
-    const [analysis, setAnalysis] = useState<
-        { name: string; description: string; percentage: number }[]
-    >([]);
+    const { analysis, setAnalysis, leetcodeData, setLeetcodeData } = useAnalysis();
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchAnalysis = async () => {
+        const fetchData = async () => {
             try {
+                // Fetch summary analysis
                 const response = await fetch("http://localhost:5000/get_analysis", {
                     method: "GET",
                 });
@@ -25,9 +25,9 @@ export default function SummaryPage() {
                 }
 
                 const data = await response.json();
-                console.log("Fetched Data:", data); // Debug the fetched data
+                console.log("Fetched Analysis Data:", data); // Debug the fetched data
 
-                // Check if data has an "analysis" key and set it to the state
+                // Check if data has an "analysis" key and set it to the context
                 if (data.analysis && Array.isArray(data.analysis)) {
                     const formattedData = data.analysis.map((item: any) => ({
                         name: item.category,
@@ -38,14 +38,30 @@ export default function SummaryPage() {
                 } else {
                     throw new Error("Invalid data format received from backend.");
                 }
+
+                // Fetch Leetcode data
+                const leetcodeResponse = await fetch("http://localhost:5000/get_query_results", {
+                    method: "GET",
+                });
+
+                if (!leetcodeResponse.ok) {
+                    const errorData = await leetcodeResponse.json();
+                    throw new Error(errorData.error || "Failed to fetch Leetcode data");
+                }
+
+                const leetcodeResults = await leetcodeResponse.json();
+                console.log("Fetched Leetcode Data:", leetcodeResults); // Debug the fetched data
+
+                setLeetcodeData(leetcodeResults);
+
             } catch (err) {
-                console.error("Error fetching analysis:", err);
-                setError("Failed to fetch analysis. Please try again.");
+                console.error("Error fetching data:", err);
+                setError("Failed to fetch data. Please try again.");
             }
         };
 
-        fetchAnalysis();
-    }, []);
+        fetchData();
+    }, [setAnalysis, setLeetcodeData]);
 
     if (error) {
         return (
@@ -95,8 +111,8 @@ export default function SummaryPage() {
                 <Carousel items={cards} />
                 <div className="flex items-center justify-center">
                     <Button
-                        className="px-6 py-3 text-lg font-bold bg-zinc-950 text-white rounded-lg shadow-lg " 
-                        onClick={() => router.push("/questions")}
+                        className="px-6 py-3 text-lg font-bold bg-zinc-950 text-white rounded-lg shadow-lg "
+                        onClick={() => router.push("/roadmap")}
                     >
                         View your Map :D
                     </Button>

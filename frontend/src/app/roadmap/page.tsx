@@ -1,64 +1,117 @@
+// src/app/roadmap/page.tsx
+
 "use client";
-import React, { useEffect, useState } from "react";
-import { Carousel, Card } from "../components/ui/roadmap-cards";
 
-export function AppleCardsCarouselDemo() {
-  const [data, setData] = useState<any[]>([]);
+import React, { useState } from "react";
+import { ArcherContainer, ArcherElement } from "react-archer";
+import { useAnalysis } from "../context/AnalysisContext";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
-  useEffect(() => {
-    // Fetch the JSON data from the public folder
-    fetch('/leetcodeproblems.json')
-      .then((response) => response.json())
-      .then((jsonData) => {
-        // Dynamically add category to each item in the JSON data
-        const updatedData = jsonData.map((item: any, index: number) => ({
-          title: item.category,
-          content: item.problems,
-          category: `Problem set #${index + 1}`,
-        }));
-        console.log("Updated Data:", updatedData);
-        setData(updatedData);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
+export default function RoadmapPage() {
+  const { leetcodeData, setSelectedQuestion } = useAnalysis();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const router = useRouter(); // Initialize router
 
-  const cards = data.map((card, index) => (
-    <Card key={card.title} card={card} index={index} />
-  ));
+  if (!leetcodeData) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center p-4">
+        <div className="bg-zinc-950 shadow-xl border border-white/[0.1] shadow-white/[0.05] text-white p-6 rounded-xl shadow-xl">
+          <h1 className="text-2xl font-bold mb-4">Loading Roadmap...</h1>
+          <p>Fetching your LeetCode problem roadmap. Please wait.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (leetcodeData.length === 0) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center p-4">
+        <div className="bg-zinc-950 shadow-xl border border-white/[0.1] shadow-white/[0.05] text-white p-6 rounded-xl shadow-xl">
+          <h1 className="text-2xl font-bold mb-4">No Roadmap Found</h1>
+          <p>
+            Your analysis did not yield any topics. Please complete the quiz to generate a
+            roadmap.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const toggleExpand = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const handleQuestionClick = (problem: any) => {
+    setSelectedQuestion(problem);
+    router.push("/ide"); // Navigate to the IDE page
+  };
 
   return (
-    <div className="w-full h-full py-20 bg-black">
-      <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-white font-sans">
-        Practise Problem Roadmap
-      </h2>
-      <Carousel items={cards} />
+    <div className="min-h-screen bg-zinc-950 flex flex-col items-center justify-start p-6 relative">
+      <div className="w-full max-w-3xl py-10">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-12 text-center">
+          Your LeetCode Problem Roadmap
+        </h2>
+
+        <ArcherContainer strokeColor="white" strokeWidth={2}>
+          <div className="space-y-16">
+            {leetcodeData.map((category, index) => (
+              <ArcherElement
+                key={index}
+                id={`category-${index}`}
+                relations={
+                  index < leetcodeData.length - 1
+                    ? [
+                        {
+                          targetId: `category-${index + 1}`,
+                          targetAnchor: "top",
+                          sourceAnchor: "bottom",
+                        },
+                      ]
+                    : []
+                }
+              >
+                <div
+                  className="bg-zinc-950 shadow-xl border border-white/[0.1] shadow-white/[0.05] text-white rounded-lg p-6 cursor-pointer transition-transform transform hover:scale-105"
+                  onClick={() => toggleExpand(index)}
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-xl font-bold">{category.category}</h3>
+                    <span className="text-lg">{activeIndex === index ? "▲" : "▼"}</span>
+                  </div>
+
+                  {activeIndex === index && (
+                    <div className="mt-4">
+                      <ul className="list-disc list-inside space-y-5">
+                        {category.problems.map((problem, pIndex) => (
+                          <li
+                            key={pIndex}
+                            className="flex justify-between items-center cursor-pointer hover:text-blue-400"
+                            onClick={() => handleQuestionClick(problem)} // Handle click
+                          >
+                            <span className="text-md">{problem.problem_name}</span>
+                            <span
+                              className={`font-semibold text-md ${
+                                problem.problem_difficulty === "Easy"
+                                  ? "text-green-400"
+                                  : problem.problem_difficulty === "Medium"
+                                  ? "text-yellow-400"
+                                  : "text-red-400"
+                              }`}
+                            >
+                              {problem.problem_difficulty}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </ArcherElement>
+            ))}
+          </div>
+        </ArcherContainer>
+      </div>
     </div>
   );
 }
-
-const Content = () => {
-  return (
-    <>
-      {[...new Array(5).fill(1)].map((_, index) => {
-        return (
-          <div
-            key={"dummy-content" + index}
-            className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-4"
-          >
-            <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
-              <span className="font-bold text-neutral-700 dark:text-neutral-200">
-                The first rule of Apple club is that you boast about Apple club.
-              </span>{" "}
-              Keep a journal, quickly jot down a grocery list, and take amazing
-              class notes. Want to convert those notes to text? No problem.
-              Langotiya jeetu ka mara hua yaar is ready to capture every
-              thought.
-            </p>
-          </div>
-        );
-      })}
-    </>
-  );
-}
-
-export default AppleCardsCarouselDemo;

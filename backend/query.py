@@ -69,28 +69,28 @@ def load_difficulty_mapping(csv_file_path):
     
     return title_to_difficulty
 
-def main():
+def process_analysis(analysis_data):
+    """
+    Process the analysis data and return the query results.
+    """
+    # Determine the base directory relative to this script
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
     # Load the vector store
-    persist_directory = 'vectorstore'
+    persist_directory = os.path.join(BASE_DIR, 'vectorstore')
+    if not os.path.exists(persist_directory):
+        print(f"Error: Vector store directory {persist_directory} not found.")
+        return []
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
     vectorstore = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
 
-    # Load the analysis JSON file
-    analysis_file = "backend/json/gpt-analysis.json"
-    output_file = "query_results.json"
-
-    if not os.path.exists(analysis_file):
-        print(f"Error: {analysis_file} not found.")
-        return
-
-    with open(analysis_file, "r") as f:
-        analysis_data = json.load(f)
-
     topics = analysis_data.get("topics", [])
+    if not topics:
+        print("Warning: No topics found in analysis data.")
     results = []
 
     # Load the difficulty mapping from CSV
-    csv_file_path = 'backend/csv/leetcode_questions.csv'
+    csv_file_path = os.path.join(BASE_DIR, 'csv', 'leetcode_questions.csv')
     title_to_difficulty = load_difficulty_mapping(csv_file_path)
     
     if not title_to_difficulty:
@@ -140,11 +140,4 @@ def main():
 
         results.append(topic_results)
 
-    # Save results to a JSON file
-    with open(output_file, "w") as f:
-        json.dump(results, f, indent=4)
-
-    print(f"\nResults saved to {output_file}")
-
-if __name__ == "__main__":
-    main()
+    return results
