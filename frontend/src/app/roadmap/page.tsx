@@ -13,7 +13,7 @@ export function AppleCardsCarouselDemo() {
         // Dynamically add category to each item in the JSON data
         const updatedData = jsonData.map((item: any, index: number) => ({
           title: item.category,
-          content: item.problems,
+          content: formatContent(item.problems),
           category: `Problem set #${index + 1}`,
         }));
         console.log("Updated Data:", updatedData);
@@ -36,29 +36,15 @@ export function AppleCardsCarouselDemo() {
   );
 }
 
-const Content = () => {
-  return (
-    <>
-      {[...new Array(5).fill(1)].map((_, index) => {
-        return (
-          <div
-            key={"dummy-content" + index}
-            className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-4"
-          >
-            <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
-              <span className="font-bold text-neutral-700 dark:text-neutral-200">
-                The first rule of Apple club is that you boast about Apple club.
-              </span>{" "}
-              Keep a journal, quickly jot down a grocery list, and take amazing
-              class notes. Want to convert those notes to text? No problem.
-              Langotiya jeetu ka mara hua yaar is ready to capture every
-              thought.
-            </p>
-          </div>
-        );
-      })}
-    </>
-  );
-}
+const formatContent = (problems: any[]) => {
+    return problems.map((problem, index) => (
+      <div key={index} className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-4">
+        <h4 className="font-semibold text-neutral-700 dark:text-neutral-200">
+          {problem.problem_name}
+        </h4>
+        <p className="text-neutral-600 dark:text-neutral-400">{problem.problem_difficulty}</p>
+      </div>
+    ));
+  };
 
 export default AppleCardsCarouselDemo;
