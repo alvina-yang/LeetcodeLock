@@ -1,6 +1,7 @@
 "use client"; // Ensure client-side execution
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 
@@ -23,6 +24,10 @@ export default function Login() {
     } else {
       setError("Invalid username or password. Please try again.");
     }
+  };
+
+  const handleGoogleSignIn = () => {
+    signIn("google", { callbackUrl: "/onboarding" }); // Redirect to /onboarding after successful login
   };
 
   if (!isClient) return null; // Avoid rendering until on the client
@@ -61,7 +66,7 @@ export default function Login() {
         {error && (
           <p className="text-red-500 text-xs italic mb-4">{error}</p>
         )}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-6">
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
@@ -70,6 +75,16 @@ export default function Login() {
           </button>
         </div>
       </form>
+
+      {/* Google Sign In Button */}
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={handleGoogleSignIn}
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+        >
+          Sign in with Google
+        </button>
+      </div>
     </div>
   );
 }
