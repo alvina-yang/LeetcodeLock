@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { IconBrandGoogle, IconBrandApple } from "@tabler/icons-react";
+import { IconBrandGoogle } from "@tabler/icons-react";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -29,11 +29,6 @@ export default function Login() {
 
   const handleGoogleSignIn = () => {
     signIn("google", { callbackUrl: "/onboarding" }); // Redirect to /onboarding after successful login
-  };
-
-  const handleAppleSignIn = () => {
-    // Replace with actual Apple Sign-In logic when available
-    alert("Apple Sign-In not yet implemented.");
   };
 
   if (!isClient) return null; // Avoid rendering until on the client
