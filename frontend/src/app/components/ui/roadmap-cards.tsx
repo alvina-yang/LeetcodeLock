@@ -141,7 +141,7 @@ export const Card = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="bg-black/80 backdrop-blur-lg h-full w-full fixed inset-0"
+                className="bg-black backdrop-blur-lg h-full w-full fixed inset-0"
               />
               <motion.div
                 initial={{ opacity: 0 }}
@@ -155,7 +155,7 @@ export const Card = ({
                   className="sticky top-4 h-8 w-8 right-0 ml-auto bg-black dark:bg-zinc-900 rounded-full flex items-center justify-center"
                   onClick={handleClose}
                 >
-                  <IconX className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
+                  <IconX className="h-6 w-6 text-white" />
                 </button>
                 <motion.p
                   layoutId={layout ? `category-${card.title}` : undefined}

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Carousel, Card } from "../components/ui/roadmap-cards";
+import { useRouter } from "next/navigation";
 
 export function AppleCardsCarouselDemo() {
   const [data, setData] = useState<any[]>([]);
@@ -38,11 +39,18 @@ export function AppleCardsCarouselDemo() {
 
 const formatContent = (problems: any[]) => {
     return problems.map((problem, index) => (
-      <div key={index} className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-4">
-        <h4 className="font-semibold text-neutral-700 dark:text-neutral-200">
-          {problem.problem_name}
-        </h4>
-        <p className="text-neutral-600 dark:text-neutral-400">{problem.problem_difficulty}</p>
+      <div key={index} className="bg-zinc-800 p-8 rounded-3xl mb-4 relative">
+        <h4 className="font-semibold text-white">{problem.problem_name}</h4>
+        <p className="text-neutral-600 dark:text-neutral-400">
+          Difficulty: {problem.problem_difficulty}
+        </p>
+        {/* Next Button */}
+        <button
+          className="absolute bottom-4 right-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-semibold shadow-lg"
+          onClick={() => console.log(`Next clicked for problem: ${problem.problem_name}`)}
+        >
+          Next
+        </button>
       </div>
     ));
   };
